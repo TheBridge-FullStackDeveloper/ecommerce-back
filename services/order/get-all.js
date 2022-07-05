@@ -1,10 +1,10 @@
-const { selectAllOrders } = require("../../queries/auth");
+const { selectAllOrders } = require("../../queries/orders");
 const errors = require("../../errors/commons");
 
 module.exports = (db) => async (_, res, next) => {
-    const { email } = res.locals;
+    const { userId } = res.locals;
 
-    const queryResult = await selectAllOrders(db)({ email })
+    const queryResult = await selectAllOrders(db)({ userId })
 
     if (!queryResult.ok) return next(errors[400]);
 
