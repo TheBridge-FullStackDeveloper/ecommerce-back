@@ -1,6 +1,7 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
+const db = require("./configs/db");
 
 app.use(express.json());
 app.use("/", require("./services")())
