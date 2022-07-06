@@ -75,7 +75,7 @@ const deleteProduct = (db) => async({ProductID}) =>{
     
 };
 
-module.exports {
+module.exports = {
     getOneProduct, 
     getAllProducts,
     createProducts,

@@ -46,9 +46,9 @@ const deleteOneProduct = ({ProductID}) =>{
         DELETE FROM products
         WHERE ProductID = ${ProductID}
     `
-}
+};
 
-module.exports= {
+module.exports = {
     selectOneProduct,
     selectAllProducts,
     insertOneProduct,
