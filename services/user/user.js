@@ -15,7 +15,6 @@ module.exports = (db) => async (_, res, next) => {
     data: {
       firstName,
       email,
-      password,
       address,
       role,
     },
