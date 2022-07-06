@@ -7,12 +7,12 @@ const forms = {
     remove: ['productId']
 }
 
-module.exports = (db) => {//pendiente pasar (db)
+module.exports = (db) => {
     
-    router.get("/get-all", require("./get-all")(db));//pendiente pasar (db)
-    router.post("/create", checker(...forms.create), require("./create")(db));//pendiente pasar (db)
-    router.post("/update", checker(...forms.update), require("./update")(db));//pendiente pasar (db)
-    router.post("/remove", checker(...forms.remove), require("./remove")(db));//pendiente pasar (db)
+    router.get("/get-all", require("./get-all")(db));
+    router.post("/create", checker(...forms.create), require("./create")(db));
+    router.post("/update", checker(...forms.update), require("./update")(db));
+    router.post("/remove", checker(...forms.remove), require("./remove")(db));
 
     return router;
 }

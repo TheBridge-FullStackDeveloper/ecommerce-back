@@ -1,4 +1,4 @@
-module.exports = (db) => async (req, res, next) => {//pendiente pasar (db)
+module.exports = (db) => async (req, res, next) => {
 
     console.log( req.body )
     
