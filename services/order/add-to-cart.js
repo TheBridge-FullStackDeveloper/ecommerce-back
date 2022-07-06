@@ -3,12 +3,11 @@ const errors = require("../../errors/commons");
 
 module.exports = (db) => async (req, res, next) => {
   const { productId } = req.body;
-  const { userId } = res.locals;
+  const { email } = res.locals;
 
-  const queryResult = await addProduct(db)({ productId });
+  const queryResult = await addProduct(db)({ productId, email });
 
-  if (!queryResult.ok) return next(login[queryResult.code] || errors[500]);
-
+  if (!queryResult.ok) return next(errors[500]);
 
   res.status(200).json({
     success: true,
