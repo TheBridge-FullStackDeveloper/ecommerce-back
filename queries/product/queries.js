@@ -3,7 +3,7 @@ const { sql } = require("slonik");
 const selectOneProduct = ({id}) =>{
     return sql `
         SELECT * FROM products 
-        WHERE ProductID = ${id};
+        WHERE id = ${id};
     `
 };
 
@@ -16,7 +16,7 @@ const selectAllProducts = () =>{
 const insertOneProduct = ({id, category, name, price, quantity, img, details, rate}) =>{
     return sql`
         INSERT INTO products(
-            productId, category, name, price, quantity, img, details, rate
+            id, category, name, price, quantity, img, details, rate
         ) VALUES(
             ${id}, 
             ${category}, 
@@ -30,12 +30,12 @@ const insertOneProduct = ({id, category, name, price, quantity, img, details, ra
     `;
 };
 
-const updateOneProduct = ({id, name, category }) => {
+const updateOneProduct = ({id, category, name, price, quantity, img, details, rate }) => {
 
     return sql`
         UPDATE products
-        SET Name = ${name} AND Category = ${category} AND Price = ${price} AND Quantity = ${quantity} AND Img = ${img} AND Detials = ${details} AND Rate =${rate}
-        WHERE ProductID = ${id}
+        SET name = ${name}, category = ${category}, price = ${price}, quantity = ${quantity}, img = ${img}, details = ${details},rate =${rate}
+        WHERE id = ${id}
     
     `
 };
@@ -44,7 +44,7 @@ const deleteOneProduct = ({id}) =>{
 
     return sql `
         DELETE FROM products
-        WHERE ProductID = ${id}
+        WHERE id = ${id}
     `
 }
 

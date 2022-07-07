@@ -1,5 +1,5 @@
-const { selectAllProducts } = require("./queries"); 
-
+const { selectOneProduct, selectAllProducts, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
+const { queryCatcher } = require("../utils");
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
 
 const getOneProduct = (db) => async({id}) =>{
@@ -14,7 +14,7 @@ const getAllProducts = (db) =>
     async() =>{
 
     return await queryCatcher(
-        db.maybeOne, 
+        db.query, 
         "getAllProducts"
     )(selectAllProducts());
 };
