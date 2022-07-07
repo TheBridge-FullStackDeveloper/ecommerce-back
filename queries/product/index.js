@@ -1,12 +1,12 @@
-const { selectAllProducts } = require("./queries"); 
-
+const { selectOneProduct, selectAllProducts, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
+const { queryCatcher } = require("../utils");
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
 
-const getOneProduct = (db) => async({ProductID}) =>{
+const getOneProduct = (db) => async({productId}) =>{
     return await queryCatcher(
         db.maybeOne,
         "getOneProduct"
-    )(selectOneProduct({ProductID}))
+    )(selectOneProduct({productId}))
 };
 
 // Querie para coger todos los Productos 
@@ -22,28 +22,28 @@ const getAllProducts = (db) =>
 
 // Querie para crear un producto
 const createProducts = (db) => 
-    async({ProductID, Category, Name, Price, Quantity, Img, Details, Rate}) =>{
+    async({productId, category, name, price, quantity, img, details, rate}) =>{
 
     return await queryCatcher(
         db.query, 
         "createProducts"
     )(insertOneProduct({ 
-        ProductID,
-        Category, 
-        Name, 
-        Price, 
-        Quantity, 
-        Img, 
-        Details, 
-        Rate
+        productId,
+        category, 
+        name, 
+        price, 
+        quantity, 
+        img, 
+        details, 
+        rate
     }
     ));
 };
 
 // Querie para hacer Update de un Producto: Aquí tengo mas dudas de los argumentos que paso 
 
-const updateProduct = (db) => async({ProductID}) =>{
-    const product = await getOneProduct(db)({ProductID});
+const updateProduct = (db) => async({productId, category, name, price, quantity, img, details, rate}) =>{
+    const product = await getOneProduct(db)({productId});
 
     if(!product.data)
         return {
@@ -54,13 +54,13 @@ const updateProduct = (db) => async({ProductID}) =>{
         return await queryCatcher(
             db.query, 
             "updateProduct"
-        )(updateOneProduct({ProductID, Category, Name, Price, Quantity, Img, Details, Rate}))
+        )(updateOneProduct({productId, category, name, price, quantity, img, details, rate}))
     
 };
 
 // Delete a Product 
-const deleteProduct = (db) => async({ProductID}) =>{
-    const product = await getOneProduct(db)({ProductID});
+const deleteProduct = (db) => async({productId}) =>{
+    const product = await getOneProduct(db)({productId});
 
     if(!product.data)
         return {
@@ -71,11 +71,11 @@ const deleteProduct = (db) => async({ProductID}) =>{
         return await queryCatcher(
             db.query, 
             "deleteProduct"
-        )(deleteOneProduct({ProductID}))
+        )(deleteOneProduct({productId}))
     
 };
 
-module.exports {
+module.exports = {
     getOneProduct, 
     getAllProducts,
     createProducts,
