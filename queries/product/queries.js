@@ -30,7 +30,7 @@ const insertOneProduct = ({productId, category, name, price, quantity, img, deta
     `;
 };
 
-const updateOneProduct = ({productId, name, category }) => {
+const updateOneProduct = ({productId, category, name, price, quantity, img, details, rate }) => {
 
     return sql`
         UPDATE products
@@ -46,9 +46,9 @@ const deleteOneProduct = ({productId}) =>{
         DELETE FROM products
         WHERE productId = ${productId}
     `
-};
+}
 
-module.exports = {
+module.exports= {
     selectOneProduct,
     selectAllProducts,
     insertOneProduct,

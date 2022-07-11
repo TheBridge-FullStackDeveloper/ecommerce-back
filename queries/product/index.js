@@ -1,5 +1,5 @@
 const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
-
+const { queryCatcher } = require("../utils")
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
 
 const getOneProduct = (db) => async({productId}) =>{
@@ -14,7 +14,7 @@ const getAllProducts = (db) =>
     async() =>{
 
     return await queryCatcher(
-        db.maybeOne, 
+        db.query, 
         "getAllProducts"
     )(selectAllProducts());
 };
@@ -42,7 +42,7 @@ const createProducts = (db) =>
 
 // Querie para hacer Update de un Producto: Aquí tengo mas dudas de los argumentos que paso 
 
-const updateProduct = (db) => async({productId}) =>{
+const updateProduct = (db) => async({productId, category, name, price, quantity, img, details, rate}) =>{
     const product = await getOneProduct(db)({productId});
 
     if(!product.data)
