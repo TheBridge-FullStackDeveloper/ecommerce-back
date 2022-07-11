@@ -1,12 +1,12 @@
-const { selectAllProducts } = require("./queries"); 
+const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
 
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
 
-const getOneProduct = (db) => async({id}) =>{
+const getOneProduct = (db) => async({productId}) =>{
     return await queryCatcher(
         db.maybeOne,
         "getOneProduct"
-    )(selectOneProduct({id}))
+    )(selectOneProduct({productId}))
 };
 
 // Querie para coger todos los Productos 
@@ -22,13 +22,13 @@ const getAllProducts = (db) =>
 
 // Querie para crear un producto
 const createProducts = (db) => 
-    async({id, category, name, price, quantity, img, details, rate}) =>{
+    async({productId, category, name, price, quantity, img, details, rate}) =>{
 
     return await queryCatcher(
         db.query, 
         "createProducts"
     )(insertOneProduct({ 
-        id,
+        productId,
         category, 
         name, 
         price, 
@@ -42,8 +42,8 @@ const createProducts = (db) =>
 
 // Querie para hacer Update de un Producto: Aquí tengo mas dudas de los argumentos que paso 
 
-const updateProduct = (db) => async({id}) =>{
-    const product = await getOneProduct(db)({id});
+const updateProduct = (db) => async({productId}) =>{
+    const product = await getOneProduct(db)({productId});
 
     if(!product.data)
         return {
@@ -54,13 +54,13 @@ const updateProduct = (db) => async({id}) =>{
         return await queryCatcher(
             db.query, 
             "updateProduct"
-        )(updateOneProduct({id, category, name, price, quantity, img, details, rate}))
+        )(updateOneProduct({productId, category, name, price, quantity, img, details, rate}))
     
 };
 
 // Delete a Product 
-const deleteProduct = (db) => async({id}) =>{
-    const product = await getOneProduct(db)({id});
+const deleteProduct = (db) => async({productId}) =>{
+    const product = await getOneProduct(db)({productId});
 
     if(!product.data)
         return {
@@ -71,7 +71,7 @@ const deleteProduct = (db) => async({id}) =>{
         return await queryCatcher(
             db.query, 
             "deleteProduct"
-        )(deleteOneProduct({id}))
+        )(deleteOneProduct({productId}))
     
 };
 
