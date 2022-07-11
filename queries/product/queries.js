@@ -1,9 +1,9 @@
 const { sql } = require("slonik");
 
-const selectOneProduct = ({id}) =>{
+const selectOneProduct = ({productId}) =>{
     return sql `
         SELECT * FROM products 
-        WHERE id = ${id};
+        WHERE productId = ${productId};
     `
 };
 
@@ -13,12 +13,12 @@ const selectAllProducts = () =>{
     `;
 };
 
-const insertOneProduct = ({id, category, name, price, quantity, img, details, rate}) =>{
+const insertOneProduct = ({productId, category, name, price, quantity, img, details, rate}) =>{
     return sql`
         INSERT INTO products(
-            id, category, name, price, quantity, img, details, rate
+            productId, category, name, price, quantity, img, details, rate
         ) VALUES(
-            ${id}, 
+            ${productId}, 
             ${category}, 
             ${name}, 
             ${price}, 
@@ -30,25 +30,25 @@ const insertOneProduct = ({id, category, name, price, quantity, img, details, ra
     `;
 };
 
-const updateOneProduct = ({id, name, category }) => {
+const updateOneProduct = ({productId, category, name, price, quantity, img, details, rate }) => {
 
     return sql`
         UPDATE products
-        SET name = ${name} AND category = ${category} AND price = ${price} AND quantity = ${quantity} AND img = ${img} AND Detials = ${details} AND rate =${rate}
-        WHERE id = ${id}
+        SET name = ${name}, category = ${category}, price = ${price}, quantity = ${quantity}, img = ${img}, details = ${details},rate =${rate}
+        WHERE productId = ${productId}
     
     `
 };
 
-const deleteOneProduct = ({id}) =>{
+const deleteOneProduct = ({productId}) =>{
 
     return sql `
         DELETE FROM products
-        WHERE id = ${id}
+        WHERE productId = ${productId}
     `
-};
+}
 
-module.exports = {
+module.exports= {
     selectOneProduct,
     selectAllProducts,
     insertOneProduct,
