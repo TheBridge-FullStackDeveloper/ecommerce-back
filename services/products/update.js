@@ -3,11 +3,11 @@ const { updateProduct } = require("../../queries/product");
 
 module.exports = (db) => async (req, res, next) => {
 
-  const {id, category, name, price, quantity, img, details, rate} = req.body
+  const {productId, category, name, price, quantity, img, details, rate} = req.body
 
     //console.log( req.body )
     const queryResult = await updateProduct(db)({
-      id, 
+      productId, 
       category, 
       name, 
       price, 

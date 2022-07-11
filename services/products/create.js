@@ -2,13 +2,13 @@ const { createProducts, getOneProduct } = require("../../queries/product")
 
 module.exports = (db) => async (req, res, next) => {
 
-    const {id, category, name, price, quantity, img, details, rate} = req.body
+    const {productId, category, name, price, quantity, img, details, rate} = req.body
 
-    const product = await getOneProduct(db)({id});
+    const product = await getOneProduct(db)({productId});
     if(product.data) return next("Duplicado"); ///pendiente errors errors register[queryResult.code] || errors[500]
     
     const queryResult = await createProducts(db)({
-      id, 
+      productId, 
       category, 
       name, 
       price, 

@@ -2,9 +2,9 @@ const router = require("express").Router();
 const { checker } = require("../../middlewares");
 
 const forms = {
-    create: ['id', 'category', 'name', 'price', 'quantity', 'img', 'details', 'rate'],
-    update: ['id', 'category', 'name', 'price', 'quantity', 'img', 'details', 'rate'],
-    remove: ['id']
+    create: ['productId', 'category', 'name', 'price', 'quantity', 'img', 'details', 'rate'],
+    update: ['productId', 'category', 'name', 'price', 'quantity', 'img', 'details', 'rate'],
+    remove: ['productId']
 }
 
 module.exports = (db) => {
