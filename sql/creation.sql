@@ -1,38 +1,42 @@
--- borrado tabla "products"
+DROP TABLE IF EXISTS orders; 
 DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS categories;
+DROP EXTENSION IF EXISTS "uuid-ossp";
 
--- creacion tabla "products"; primary key productId
-CREATE TABLE IF NOT EXISTS products (
-  productId SERIAL PRIMARY KEY,
-  category TEXT NOT NULL,
-  name TEXT NOT NULL,
-  price INT NOT NULL,
-  quantity INT NOT NULL,
-  img TEXT NOT NULL,
-  details TEXT NOT NULL,
-  rate TEXT NOT NULL
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS categories (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name TEXT NOT NULL UNIQUE
 );
 
--- borrado tabla "users"
-DROP TABLE IF EXISTS users;
-
--- creacion tabla "users"; primary key userId
 CREATE TABLE IF NOT EXISTS users (
-  userId SERIAL PRIMARY KEY,
-  firstName TEXT NOT NULL,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  first_name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   address TEXT NOT NULL,
   role TEXT NOT NULL
 );
 
--- borrado tabla "orders"
-DROP TABLE IF EXISTS orders; 
+CREATE TABLE IF NOT EXISTS products (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  ref TEXT NOT NULL UNIQUE,
+  name VARCHAR(20) NOT NULL,
+  price NUMERIC(1000, 2) NOT NULL,
+  quantity INTEGER NOT NULL,
+  img TEXT NOT NULL,
+  details VARCHAR(500) NOT NULL,
+  rate SMALLINT NOT NULL,
+  category_id uuid REFERENCES categories,
+  constraint valid_rate
+      check (rate >= 0 AND rate <= 5)
+);
 
--- creacion tabla "orders"; primary key orderID
 CREATE TABLE IF NOT EXISTS orders (
-  orderId SERIAL PRIMARY KEY, 
-  quantity INT NOT NULL,
-  userId smallint REFERENCES users(userId), --referencia la tabla "orders" con la clave de la tabla "users"
-  productId smallint REFERENCES products(productId) --referencia la tabla "orders" con la clave de la tabla "products"
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(), 
+  quantity INTEGER NOT NULL,
+  user_id uuid REFERENCES users,
+  product_id uuid REFERENCES products
 );
