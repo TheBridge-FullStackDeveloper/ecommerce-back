@@ -1,5 +1,5 @@
 const { deserialize } = require("../utils");
-// const errors = require("../errors/commons"); //en cuanto tengamos los errors
+const errors = require("../errors/commons");
 
 module.exports = (req, res, next) => {
   const payload = deserialize(req);

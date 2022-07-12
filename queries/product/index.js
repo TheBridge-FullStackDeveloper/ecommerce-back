@@ -1,5 +1,5 @@
-const { selectOneProduct, selectAllProducts, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
-const { queryCatcher } = require("../utils");
+const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
+const { queryCatcher } = require("../utils")
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
 
 const getOneProduct = (db) => async({productId}) =>{

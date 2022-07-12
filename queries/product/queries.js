@@ -34,7 +34,7 @@ const updateOneProduct = ({productId, category, name, price, quantity, img, deta
 
     return sql`
         UPDATE products
-        SET name = ${name}, category = ${category}, price = ${price}, quantity = ${quantity}, img = ${img}, details = ${details},rate =${rate}
+        SET name = ${name}, category = ${category}, price = ${price}, quantity = ${quantity}, img = ${img}, details = ${details}, rate =${rate}
         WHERE productId = ${productId}
     
     `
