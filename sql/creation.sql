@@ -2,7 +2,12 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
+DROP TYPE IF EXISTS roles;
 DROP EXTENSION IF EXISTS "uuid-ossp";
+
+CREATE TYPE roles AS ENUM (
+  'client', 'client_vip', 'vendor'
+);
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -13,11 +18,11 @@ CREATE TABLE IF NOT EXISTS categories (
 
 CREATE TABLE IF NOT EXISTS users (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  first_name TEXT NOT NULL,
+  first_name VARCHAR(20) NOT NULL,
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  address TEXT NOT NULL,
-  role TEXT NOT NULL
+  address VARCHAR(70) NOT NULL,
+  role roles NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS products (
@@ -29,14 +34,22 @@ CREATE TABLE IF NOT EXISTS products (
   img TEXT NOT NULL,
   details VARCHAR(500) NOT NULL,
   rate SMALLINT NOT NULL,
-  category_id uuid REFERENCES categories,
-  constraint valid_rate
-      check (rate >= 0 AND rate <= 5)
+  category_id uuid REFERENCES categories
+    ON UPDATE CASCADE
+    ON DELETE SET NULL,
+  CONSTRAINT valid_rate
+      CHECK (rate >= 0 AND rate <= 5)
 );
 
 CREATE TABLE IF NOT EXISTS orders (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(), 
-  quantity INTEGER NOT NULL,
-  user_id uuid REFERENCES users,
+  quantity INTEGER NOT NULL DEFAULT 1,
+  user_id uuid REFERENCES users
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
   product_id uuid REFERENCES products
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  CONSTRAINT id PRIMARY KEY (user_id, product_id)
 );
+
+
