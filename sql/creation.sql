@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS orders; 
+DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
@@ -43,13 +44,23 @@ CREATE TABLE IF NOT EXISTS products (
 
 CREATE TABLE IF NOT EXISTS orders (
   quantity INTEGER NOT NULL DEFAULT 1,
-  sell_id uuid REFERENCES users
+  sell_id uuid REFERENCES sells
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   product_id uuid REFERENCES products
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT id PRIMARY KEY (sell_id, product_id)
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+  rate INTEGER NOT NULL,
+  review TEXT NOT NULL,
+  user_id uuid REFERENCES users,
+  product_id uuid REFERENCES products,
+  CONSTRAINT valid_rate
+      CHECK (rate >= 0 AND rate <= 5)
+  CONSTRAINT id PRIMARY KEY (user_id, product_id)
 );
 
 
