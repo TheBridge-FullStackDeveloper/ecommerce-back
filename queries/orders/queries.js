@@ -15,15 +15,15 @@ const selectAllOrders = () => {
   `;
 };
 
-const insertOneOrder = ({ quantity, email, product }) => {
+const insertOneOrder = ({ quantity, sellId, product }) => {
   return sql`
   INSERT INTO orders (
     quantity, userId, productId
 ) VALUES (
     ${quantity},
-    (SELECT sellId
-     FROM sell
-    WHERE email = ${email}  ),
+    (SELECT id
+     FROM sells
+    WHERE email = ${sellId}  ),
       (SELECT productId
         FROM products
         WHERE name = ${product} )
