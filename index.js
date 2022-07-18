@@ -1,8 +1,29 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
+const cookieParser = require("cookie-parser");
 const db = require("./configs/db");
+const errors = require("./errors/commons");
+const cors = require("cors");
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`server running on PORT ${process.env.PORT}`);
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+
+app.use("/", require("./services")(db));
+
+app.use((_, __, next) => {
+  next(errors[404]);
 });
+
+app.use(({ statusCode, error }, _, res, __) => {
+  res.status(statusCode).json({
+    success: false,
+    message: error.message,
+  });
+});
+
+app.listen(process.env.PORT, () =>
+  console.info("> listening at:", process.env.PORT)
+);
