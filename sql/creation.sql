@@ -43,13 +43,13 @@ CREATE TABLE IF NOT EXISTS products (
 
 CREATE TABLE IF NOT EXISTS orders (
   quantity INTEGER NOT NULL DEFAULT 1,
-  user_id uuid REFERENCES users
+  sell_id uuid REFERENCES users
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   product_id uuid REFERENCES products
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT id PRIMARY KEY (user_id, product_id)
+  CONSTRAINT id PRIMARY KEY (sell_id, product_id)
 );
 
 
