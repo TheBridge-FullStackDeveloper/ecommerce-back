@@ -4,7 +4,7 @@ const selectOneOrder = ({ orderId }) => {
   return sql`
         SELECT *
         FROM orders
-        WHERE orderId = ${orderId};
+        WHERE id = ${orderId};
     `;
 };
 
@@ -23,7 +23,7 @@ const insertOneOrder = ({ quantity, sellId, product }) => {
     ${quantity},
     (SELECT id
      FROM sells
-    WHERE email = ${sellId}  ),
+    WHERE id = ${sellId}  ),
       (SELECT productId
         FROM products
         WHERE name = ${product} )
@@ -34,7 +34,7 @@ const insertOneOrder = ({ quantity, sellId, product }) => {
 const deleteOneOrder = ({ orderId }) => {
   return sql`
       DELETE FROM orders
-      WHERE orderId = ${orderId}
+      WHERE id = ${orderId}
   `;
 };
 
