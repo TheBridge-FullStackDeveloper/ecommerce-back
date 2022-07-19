@@ -1,21 +1,16 @@
-DROP TABLE IF EXISTS orders; 
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
 DROP TYPE IF EXISTS roles;
 DROP EXTENSION IF EXISTS "uuid-ossp";
-
 CREATE TYPE roles AS ENUM (
   'client', 'client_vip', 'vendor'
 );
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE IF NOT EXISTS categories (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL UNIQUE
 );
-
 CREATE TABLE IF NOT EXISTS users (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   first_name VARCHAR(20) NOT NULL,
@@ -24,7 +19,6 @@ CREATE TABLE IF NOT EXISTS users (
   address VARCHAR(70) NOT NULL,
   role roles NOT NULL
 );
-
 CREATE TABLE IF NOT EXISTS products (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   ref TEXT NOT NULL UNIQUE,
@@ -43,13 +37,11 @@ CREATE TABLE IF NOT EXISTS products (
 
 CREATE TABLE IF NOT EXISTS orders (
   quantity INTEGER NOT NULL DEFAULT 1,
-  sell_id uuid REFERENCES users
+  sell_Id uuid REFERENCES sells
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   product_id uuid REFERENCES products
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT id PRIMARY KEY (sell_id, product_id)
+  CONSTRAINT id PRIMARY KEY (sell_Id, product_id)
 );
-
-
