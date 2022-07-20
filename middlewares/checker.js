@@ -1,8 +1,8 @@
-// const { generic } = require("../errors/auth"); //en cuanto tengamos los errors
+const errors = require("../errors/auth"); 
 
-module.exports = (...fields) => (req, res, next) =>{
+module.exports = (type,...fields) => (req, res, next) =>{
     for(const field of fields) {
-        if(!req.body[field]) return next(generic["empty"])
+        if(!req.body[field]) return next(errors[type]["empty"])
     }
     next();
 };

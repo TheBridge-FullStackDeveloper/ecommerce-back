@@ -1,5 +1,5 @@
 const hash = require("./hash");
-const cookie = require("./cookie");
+const cookie = require("./cookies");
 const jwt =  require("./jwt");
 
 const serialize = (res, payload) => {

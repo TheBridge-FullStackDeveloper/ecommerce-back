@@ -53,6 +53,15 @@ CREATE TABLE IF NOT EXISTS sells (
   receiving_date DATE NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS sells (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  ref TEXT NOT NULL UNIQUE,
+  user_id uuid REFERENCES users
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  delivery_date DATE NOT NULL,
+  receiving_date DATE NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS orders (
   quantity INTEGER NOT NULL DEFAULT 1,
