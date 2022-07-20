@@ -4,16 +4,16 @@ const { queryCatcher } = require("../utils")
 
 
   const getAllOrders = (db) => async() =>{
-    return await queryCatcher(db.query, "selectAllOrders")(selectAllOrders());
+    return await queryCatcher(db.query, "getAllOrders")(selectAllOrders());
   };
 
   const getOneOrder =
     (db) =>
-    async ({ sellId }) => {
+    async ({ sell_id }) => {
       return await queryCatcher(
-        db.maybeOne,
+        db.query,
         "getOneOrder"
-      )(selectOneOrder({ sellId }));
+      )(selectOneOrder({ sell_id }));
     };
 
   const createOrder = (db) => async (orders) => {
@@ -34,14 +34,14 @@ const { queryCatcher } = require("../utils")
     
   const deleteOrder =
     (db) =>
-    async ({ id }) => {
-      const order = await getOneOrder(db)({ id });
+    async ({ sell_id }) => {
+      const order = await getOneOrder(db)({ sell_id });
       if (!order.data)
         return {
           ok: false,
           code: "Order doesnt exist",
         };
-      return await queryCatcher(db.query, "deleteOrder")(deleteOneOrder({ id }));
+      return await queryCatcher(db.query, "deleteOrder")(deleteOneOrder({ sell_id }));
     };
   module.exports = {
     getAllOrders,

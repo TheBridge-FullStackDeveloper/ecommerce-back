@@ -1,10 +1,10 @@
 const { sql } = require("slonik");
 
-const selectOneOrder = ({ sellId }) => {
+const selectOneOrder = ({ sell_id }) => {
   return sql`
         SELECT *
         FROM orders
-        WHERE sell_id = ${sellId};
+        WHERE sell_id = ${sell_id};
     `; // ver si dejamos sell_id o cambiamos a otra ref
 };
 
@@ -21,10 +21,11 @@ const insertOneOrder = ({ quantity, sell_id, product_id }) => {
   `;
 };
 
-const deleteOneOrder = ({ sellId }) => {
+const deleteOneOrder = ({ sell_id }) => {
+  console.log(sell_id )
   return sql`
       DELETE FROM orders
-      WHERE sell_id = ${sellId}
+      WHERE sell_id = ${sell_id}
   `; // ver si dejamos sell_id o cambiamos a otra ref
 };
 
