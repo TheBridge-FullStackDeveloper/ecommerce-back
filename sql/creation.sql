@@ -75,4 +75,12 @@ CREATE TABLE IF NOT EXISTS reviews (
   CONSTRAINT reviews_id PRIMARY KEY (user_id, product_id)
 );
 
-
+CREATE TABLE IF NOT EXISTS sells (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  ref TEXT NOT NULL UNIQUE,
+  user_id uuid REFERENCES users
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  delivery_date DATE NOT NULL,
+  receiving_date DATE NOT NULL
+);
