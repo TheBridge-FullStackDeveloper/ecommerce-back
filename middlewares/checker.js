@@ -1,4 +1,4 @@
-// const { generic } = require("../errors/auth"); //en cuanto tengamos los errors
+const { generic } = require("../errors/auth");
 
 module.exports = (...fields) => (req, res, next) =>{
     for(const field of fields) {

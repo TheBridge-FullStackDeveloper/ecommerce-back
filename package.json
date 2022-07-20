@@ -10,16 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheBridge-FullStackDeveloper/ecommerce-back.git"
+    "url": "git+https://github.com/TheBrproductIdge-FullStackDeveloper/ecommerce-back.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TheBridge-FullStackDeveloper/ecommerce-back/issues"
+    "url": "https://github.com/TheBrproductIdge-FullStackDeveloper/ecommerce-back/issues"
   },
-  "homepage": "https://github.com/TheBridge-FullStackDeveloper/ecommerce-back#readme",
+  "homepage": "https://github.com/TheBrproductIdge-FullStackDeveloper/ecommerce-back#readme",
   "dependencies": {
+<<<<<<< HEAD
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -27,5 +28,15 @@
     "node": "^18.4.0",
     "nodemon": "^2.0.19",
     "slonik": "^28.1.1"
+=======
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.19",
+    "slonik": "^28.1.1",
+    "uuid": "^8.3.2"
+>>>>>>> 671aec28c9115cc2986ebcbe461d6ed8755bde8a
   }
 }
