@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS orders; 
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS sells; 
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
@@ -37,13 +40,40 @@ CREATE TABLE IF NOT EXISTS products (
       CHECK (rate >= 0 AND rate <= 5)
 );
 
+CREATE TABLE IF NOT EXISTS sells (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  ref TEXT NOT NULL UNIQUE,
+  user_id uuid REFERENCES users
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  delivery_date DATE NOT NULL,
+  receiving_date DATE NOT NULL
+);
 CREATE TABLE IF NOT EXISTS orders (
   quantity INTEGER NOT NULL DEFAULT 1,
+<<<<<<< HEAD
   sell_Id uuid REFERENCES sells
+=======
+  sell_id uuid REFERENCES sells
+>>>>>>> 671aec28c9115cc2986ebcbe461d6ed8755bde8a
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   product_id uuid REFERENCES products
     ON UPDATE CASCADE
     ON DELETE CASCADE,
+<<<<<<< HEAD
   CONSTRAINT id PRIMARY KEY (sell_Id, product_id)
+=======
+  CONSTRAINT orders_id PRIMARY KEY (sell_id, product_id)
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+  rate INTEGER NOT NULL,
+  review TEXT NOT NULL,
+  user_id uuid REFERENCES users,
+  product_id uuid REFERENCES products,
+  CONSTRAINT valid_rate
+      CHECK (rate >= 0 AND rate <= 5),
+  CONSTRAINT reviews_id PRIMARY KEY (user_id, product_id)
+>>>>>>> 671aec28c9115cc2986ebcbe461d6ed8755bde8a
 );
