@@ -1,15 +1,14 @@
 const { sql } = require("slonik");
 
+const selectAllProducts = () => {
+  return sql`
+        SELECT * FROM products
+    `;
+};
 const selectOneProduct = ({ id }) => {
   return sql`
         SELECT * FROM products 
         WHERE id = ${id};
-    `;
-};
-
-const selectAllProducts = () => {
-  return sql`
-        SELECT * FROM products
     `;
 };
 
