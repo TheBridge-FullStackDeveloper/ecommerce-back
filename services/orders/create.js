@@ -4,7 +4,7 @@ module.exports = (db) => (req, res, next) =>{
 
     const orders = req.body;
 
-    const queryResult =  createOrder(db)(orders);
+    const queryResult = createOrder(db)(orders);
 
 
     res.status(200).json({
