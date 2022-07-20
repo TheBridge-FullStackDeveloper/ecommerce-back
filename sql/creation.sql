@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS categories (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL UNIQUE
 );
+
 CREATE TABLE IF NOT EXISTS users (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   first_name VARCHAR(20) NOT NULL,
@@ -19,6 +20,7 @@ CREATE TABLE IF NOT EXISTS users (
   address VARCHAR(70) NOT NULL,
   role roles NOT NULL
 );
+
 CREATE TABLE IF NOT EXISTS products (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   ref TEXT NOT NULL UNIQUE,

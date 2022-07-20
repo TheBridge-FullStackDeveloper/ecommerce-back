@@ -3,7 +3,7 @@ const { sql } = require("slonik");
 const selectOneProduct = ({productId}) =>{
     return sql `
         SELECT * FROM products 
-        WHERE productId = ${productId};
+        WHERE id = ${productId};
     `
 };
 

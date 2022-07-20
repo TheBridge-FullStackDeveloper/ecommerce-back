@@ -10,13 +10,8 @@ const getOneProduct = (db) => async({productId}) =>{
 };
 
 // Querie para coger todos los Productos 
-const getAllProducts = (db) => 
-    async() =>{
-
-    return await queryCatcher(
-        db.query, 
-        "getAllProducts"
-    )(selectAllProducts());
+const getAllProducts = (db) => async() =>{
+    return await queryCatcher(db.query, "getAllProducts")(selectAllProducts());
 };
 
 
