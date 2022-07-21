@@ -1,7 +1,28 @@
+DELETE FROM users
+WHERE first_name = 'Nati';
+
+DELETE FROM categories
+WHERE name = 'hogar';
+
+DELETE FROM products
+WHERE ref = 'ygu';
+
+DELETE FROM orders
+WHERE product_id = (SELECT id FROM products WHERE name = 'papel');
+
+DELETE FROM sells
+WHERE ref = 'Nati';
+
 INSERT INTO users (
   first_name, email, password, address, role
 ) VALUES (
   'Nati', 'bvhbcvjewb', '12345', 'bvyjgvde', 'client'
+);
+
+INSERT INTO sells (
+  ref, user_id, delivery_date, receiving_date
+) VALUES (
+  'Nati', (SELECT id FROM users WHERE first_name= 'Nati'), '2022-12-12', '2022-12-12'
 );
 
 INSERT INTO categories (
