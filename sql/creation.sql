@@ -51,19 +51,12 @@ CREATE TABLE IF NOT EXISTS sells (
 );
 CREATE TABLE IF NOT EXISTS orders (
   quantity INTEGER NOT NULL DEFAULT 1,
-<<<<<<< HEAD
-  sell_Id uuid REFERENCES sells
-=======
   sell_id uuid REFERENCES sells
->>>>>>> 671aec28c9115cc2986ebcbe461d6ed8755bde8a
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   product_id uuid REFERENCES products
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-<<<<<<< HEAD
-  CONSTRAINT id PRIMARY KEY (sell_Id, product_id)
-=======
   CONSTRAINT orders_id PRIMARY KEY (sell_id, product_id)
 );
 
@@ -75,5 +68,4 @@ CREATE TABLE IF NOT EXISTS reviews (
   CONSTRAINT valid_rate
       CHECK (rate >= 0 AND rate <= 5),
   CONSTRAINT reviews_id PRIMARY KEY (user_id, product_id)
->>>>>>> 671aec28c9115cc2986ebcbe461d6ed8755bde8a
 );
