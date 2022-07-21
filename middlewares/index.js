@@ -1,7 +1,7 @@
 const checker = require("./checker");
-const authorizer = require("./authorizer")
+const authorizer = require("./authorizer");
 
 module.exports = {
     checker,
-    authorizer,
+    authorizer
 }
