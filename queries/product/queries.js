@@ -1,7 +1,6 @@
 const { sql } = require("slonik");
 
 const selectOneProduct = ({ref}) =>{
-    console.log(ref)
     try {
         return sql `
         SELECT * FROM products 
@@ -48,11 +47,11 @@ const updateOneProduct = ({productId, category, name, price, quantity, img, deta
     `
 };
 
-const deleteOneProduct = ({productId}) =>{
+const deleteOneProduct = ({ref}) =>{
 
     return sql `
         DELETE FROM products
-        WHERE productId = ${productId}
+        WHERE ref = ${ref}
     `
 }
 
