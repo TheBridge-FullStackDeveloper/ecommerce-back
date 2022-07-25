@@ -6,13 +6,10 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
 DROP TYPE IF EXISTS roles;
 DROP EXTENSION IF EXISTS "uuid-ossp";
-
 CREATE TYPE roles AS ENUM (
   'client', 'client_vip', 'vendor'
 );
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE IF NOT EXISTS categories (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL UNIQUE
@@ -72,5 +69,3 @@ CREATE TABLE IF NOT EXISTS reviews (
       CHECK (rate >= 0 AND rate <= 5),
   CONSTRAINT reviews_id PRIMARY KEY (user_id, product_id)
 );
-
-
