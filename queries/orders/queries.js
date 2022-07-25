@@ -1,41 +1,32 @@
 const { sql } = require("slonik");
 
-const selectOneOrder = ({ orderId }) => {
+const selectOneOrder = ({ sell_id }) => {
   return sql`
         SELECT *
         FROM orders
-        WHERE orderId = ${orderId};
-    `;
+        WHERE sell_id = ${sell_id};
+    `; // ver si dejamos sell_id o cambiamos a otra ref
 };
 
 const selectAllOrders = () => {
   return sql`
-  SELECT *
-  FROM orders;
+  SELECT * FROM orders;`;
+};
+
+const insertOneOrder = ({ quantity, sell_id, product_id }) => {
+ // console.log(quantity, sell_Id, product_id)
+  return sql` INSERT INTO orders (quantity, sell_id, product_id) 
+  VALUES (${quantity}, (SELECT id FROM sells WHERE id = ${sell_id}),
+  (SELECT id FROM products WHERE id = ${product_id}));
   `;
 };
 
-const insertOneOrder = ({ quantity, sellId, product }) => {
-  return sql`
-  INSERT INTO orders (
-    quantity, userId, productId
-) VALUES (
-    ${quantity},
-    (SELECT sellId
-     FROM sells
-    WHERE id = ${sellId}  ),
-      (SELECT productId
-        FROM products
-        WHERE name = ${product} )
-);
-  `;
-};
-
-const deleteOneOrder = ({ orderId }) => {
+const deleteOneOrder = ({ sell_id }) => {
+  console.log(sell_id )
   return sql`
       DELETE FROM orders
-      WHERE orderId = ${orderId}
-  `;
+      WHERE sell_id = ${sell_id}
+  `; // ver si dejamos sell_id o cambiamos a otra ref
 };
 
 module.exports = {
