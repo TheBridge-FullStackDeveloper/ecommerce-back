@@ -1,84 +1,69 @@
-const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
+const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries");
 const { queryCatcher } = require("../utils")
+
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
-
-const getOneProduct = (db) => async({productId}) =>{
+const getOneProduct = (db) => async ({ ref }) => {
     return await queryCatcher(
-        db.maybeOne,
+        db.query,
         "getOneProduct"
-    )(selectOneProduct({productId}))
+    )(selectOneProduct({ ref }))
 };
 
-// Querie para coger todos los Productos 
-const getAllProducts = (db) => 
-    async() =>{
-
-    return await queryCatcher(
-        db.query, 
-        "getAllProducts"
-    )(selectAllProducts());
+// Querie para coger todos los Productos
+const getAllProducts = (db) => async () => {
+    return await queryCatcher(db.query, "getAllProducts")(selectAllProducts());
 };
-
 
 // Querie para crear un producto
-const createProducts = (db) => 
-    async({productId, category, name, price, quantity, img, details, rate}) =>{
-
+const createProducts = (db) =>
+    async ({ ref, name, price, stock, img, details, rate, category_id }) => {
+        console.log(category_id)
+        return await queryCatcher(
+            db.query,
+            "createProducts"
+        )(insertOneProduct({
+            ref,
+            name,
+            price,
+            stock,
+            img,
+            details,
+            rate,
+            category_id
+        }
+        ));
+    };
+// Querie para hacer Update de un Producto: Aquí tengo mas dudas de los argumentos que paso
+const updateProduct = (db) => async ({ ref, name, price, stock, img, details, rate, category_id }) => {
+    const product = await getOneProduct(db)({ ref });
+    if (!product.data)
+        return {
+            ok: false,
+            code: "Product doesnt exist"
+        };
     return await queryCatcher(
-        db.query, 
-        "createProducts"
-    )(insertOneProduct({ 
-        productId,
-        category, 
-        name, 
-        price, 
-        quantity, 
-        img, 
-        details, 
-        rate
-    }
-    ));
+        db.query,
+        "updateProduct"
+    )(updateOneProduct({ ref, name, price, stock, img, details, rate, category_id }))
 };
-
-// Querie para hacer Update de un Producto: Aquí tengo mas dudas de los argumentos que paso 
-
-const updateProduct = (db) => async({productId, category, name, price, quantity, img, details, rate}) =>{
-    const product = await getOneProduct(db)({productId});
-
-    if(!product.data)
+// Delete a Product
+const deleteProduct = (db) => async ({ ref }) => {
+    const product = await getOneProduct(db)({ ref });
+    if (!product.data)
         return {
             ok: false,
-            code:"Product doesnt exist"
+            code: "Product doesnt exist"
         };
-
-        return await queryCatcher(
-            db.query, 
-            "updateProduct"
-        )(updateOneProduct({productId, category, name, price, quantity, img, details, rate}))
-    
+    return await queryCatcher(
+        db.query,
+        "deleteProduct"
+    )(deleteOneProduct({ ref }))
 };
-
-// Delete a Product 
-const deleteProduct = (db) => async({productId}) =>{
-    const product = await getOneProduct(db)({productId});
-
-    if(!product.data)
-        return {
-            ok: false,
-            code:"Product doesnt exist"
-        };
-
-        return await queryCatcher(
-            db.query, 
-            "deleteProduct"
-        )(deleteOneProduct({productId}))
-    
-};
-
 module.exports = {
-    getOneProduct, 
+    getOneProduct,
     getAllProducts,
     createProducts,
     updateProduct,
     deleteProduct,
 }
+
