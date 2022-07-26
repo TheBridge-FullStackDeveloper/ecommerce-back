@@ -2,40 +2,36 @@ const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct,
 const { queryCatcher } = require("../utils")
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
 
-const getOneProduct = (db) => async({productId}) =>{
+const getOneProduct = (db) => async({ref}) =>{
+    
     return await queryCatcher(
-        db.maybeOne,
+        db.query,
         "getOneProduct"
-    )(selectOneProduct({productId}))
+    )(selectOneProduct({ref}))
 };
 
 // Querie para coger todos los Productos 
-const getAllProducts = (db) => 
-    async() =>{
-
-    return await queryCatcher(
-        db.query, 
-        "getAllProducts"
-    )(selectAllProducts());
+const getAllProducts = (db) => async() =>{
+    return await queryCatcher(db.query, "getAllProducts")(selectAllProducts());
 };
 
 
 // Querie para crear un producto
 const createProducts = (db) => 
-    async({productId, category, name, price, quantity, img, details, rate}) =>{
-
+    async({ref, name, price, stock, img, details, rate, category_id}) =>{
+        console.log(category_id)
     return await queryCatcher(
         db.query, 
         "createProducts"
     )(insertOneProduct({ 
-        productId,
-        category, 
+        ref, 
         name, 
         price, 
-        quantity, 
+        stock, 
         img, 
         details, 
-        rate
+        rate, 
+        category_id
     }
     ));
 };
@@ -59,8 +55,8 @@ const updateProduct = (db) => async({productId, category, name, price, quantity,
 };
 
 // Delete a Product 
-const deleteProduct = (db) => async({productId}) =>{
-    const product = await getOneProduct(db)({productId});
+const deleteProduct = (db) => async({ref}) =>{
+    const product = await getOneProduct(db)({ref});
 
     if(!product.data)
         return {
@@ -71,7 +67,7 @@ const deleteProduct = (db) => async({productId}) =>{
         return await queryCatcher(
             db.query, 
             "deleteProduct"
-        )(deleteOneProduct({productId}))
+        )(deleteOneProduct({ref}))
     
 };
 
