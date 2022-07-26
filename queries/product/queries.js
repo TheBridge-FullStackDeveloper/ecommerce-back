@@ -1,59 +1,55 @@
 const { sql } = require("slonik");
 
-const selectOneProduct = ({productId}) =>{
-    return sql `
-        SELECT * FROM products 
-        WHERE productId = ${productId};
+const selectOneProduct = ({ ref }) => {
+    try {
+        return sql`
+        SELECT * FROM products
+        WHERE ref = ${ref};
     `
+    } catch (error) {
+        console.log(error)
+        console.log(error.message)
+    }
 };
-
-const selectAllProducts = () =>{
-    return sql `
+const selectAllProducts = () => {
+    return sql`
         SELECT * FROM products
     `;
 };
-
-const insertOneProduct = ({productId, category, name, price, quantity, img, details, rate}) =>{
+const insertOneProduct = ({ ref, name, price, stock, img, details, rate, category_id }) => {
     return sql`
         INSERT INTO products(
-            productId, category, name, price, quantity, img, details, rate
+            ref, name, price, stock, img, details, rate, category_id
         ) VALUES(
-            ${productId}, 
-            ${category}, 
-            ${name}, 
-            ${price}, 
-            ${quantity}, 
+            ${ref},
+            ${name},
+            ${price},
+            ${stock},
             ${img},
-            ${details}, 
-            ${rate}
+            ${details},
+            ${rate},
+            ${category_id}
         );
     `;
 };
-
-const updateOneProduct = ({productId, category, name, price, quantity, img, details, rate }) => {
-
+const updateOneProduct = ({ ref, name, price, stock, img, details, rate, category_id }) => {
     return sql`
         UPDATE products
-        SET name = ${name}, category = ${category}, price = ${price}, quantity = ${quantity}, img = ${img}, details = ${details}, rate =${rate}
-        WHERE productId = ${productId}
-    
+        SET name = ${name}, price = ${price}, stock = ${stock}, img = ${img}, details = ${details}, rate =${rate}, category_id = ${category_id}
+        WHERE ref = ${ref}
     `
 };
-
-const deleteOneProduct = ({productId}) =>{
-
-    return sql `
+const deleteOneProduct = ({ ref }) => {
+    return sql`
         DELETE FROM products
-        WHERE productId = ${productId}
+        WHERE ref = ${ref}
     `
 }
-
-module.exports= {
+module.exports = {
     selectOneProduct,
     selectAllProducts,
     insertOneProduct,
     updateOneProduct,
-    deleteOneProduct, 
+    deleteOneProduct,
 }
-
 
