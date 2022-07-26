@@ -38,8 +38,8 @@ const createProducts = (db) =>
 
 // Querie para hacer Update de un Producto: Aquí tengo mas dudas de los argumentos que paso 
 
-const updateProduct = (db) => async({productId, category, name, price, quantity, img, details, rate}) =>{
-    const product = await getOneProduct(db)({productId});
+const updateProduct = (db) => async({ref, name, price, stock, img, details, rate, category_id}) =>{
+    const product = await getOneProduct(db)({ref});
 
     if(!product.data)
         return {
@@ -50,7 +50,7 @@ const updateProduct = (db) => async({productId, category, name, price, quantity,
         return await queryCatcher(
             db.query, 
             "updateProduct"
-        )(updateOneProduct({productId, category, name, price, quantity, img, details, rate}))
+        )(updateOneProduct({ref, name, price, stock, img, details, rate, category_id}))
     
 };
 

@@ -7,6 +7,10 @@ module.exports = {
       statusCode: 401,
       error: new Error("Error while removing product"),
     },
+    403: {
+      statusCode: 403,
+      error: new Error("Error updating product"),
+    },
     404: {
       statusCode: 404,
       error: new Error("Duplicated Product"),
