@@ -1,15 +1,20 @@
-const { deleteProduct } = require("../../queries/product");
+const { getOneProduct, deleteProduct } = require("../../queries/product");
+const errors =  require("../../errors/products");
 
 module.exports = (db) => async (req, res, next) => {
 
-    const {productId} = req.body;
+    const {ref} = req.body;
 
-    const queryResult = await deleteProduct(db)({productId});
+    const product = await getOneProduct(db)({ref});
+    
+    if(!product.data.length) return next(errors[402]);
 
-    if (!queryResult.ok) return next("Errorrrrrr al eliminar el producto"); //pendiente errors register[queryResult.code] || errors[500]
+    const queryResult = await deleteProduct(db)({ref});
+
+    if (!queryResult.ok) return next(errors[401]); //pendiente errors register[queryResult.code] || errors[500]
 
     res.status(200).json({
         success: true,
-        message: 'Test Remove Product',
+        message: 'Producto removed',
       });
 }

@@ -55,8 +55,8 @@ const updateProduct = (db) => async({productId, category, name, price, quantity,
 };
 
 // Delete a Product 
-const deleteProduct = (db) => async({productId}) =>{
-    const product = await getOneProduct(db)({productId});
+const deleteProduct = (db) => async({ref}) =>{
+    const product = await getOneProduct(db)({ref});
 
     if(!product.data)
         return {
@@ -67,7 +67,7 @@ const deleteProduct = (db) => async({productId}) =>{
         return await queryCatcher(
             db.query, 
             "deleteProduct"
-        )(deleteOneProduct({productId}))
+        )(deleteOneProduct({ref}))
     
 };
 
