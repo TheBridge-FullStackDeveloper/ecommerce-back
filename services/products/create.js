@@ -25,10 +25,6 @@ module.exports = (db) => async (req, res, next) => {
     
     res.status(200).json({
         success: true,
-<<<<<<< HEAD
-        message: 'Test Create Product',
-=======
         
->>>>>>> 5979620c68b6433aad792ecee71c6fd8e6c542d1
       });
 }
