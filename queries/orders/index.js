@@ -9,11 +9,11 @@ const { queryCatcher } = require("../utils")
 
   const getOneOrder =
     (db) =>
-    async ({ sell_id }) => {
+    async ({ email }) => {
       return await queryCatcher(
         db.query,
         "getOneOrder"
-      )(selectOneOrder({ sell_id }));
+      )(selectOneOrder({ email }));
     };
 
   const createOrder = (db) => async (orders) => {

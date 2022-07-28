@@ -1,10 +1,18 @@
 const { sql } = require("slonik");
 
-const selectOneOrder = ({ sell_id }) => {
+const selectOneOrder = ({ email }) => {
+  
   return sql`
-        SELECT *
-        FROM orders
-        WHERE sell_id = ${sell_id};
+    SELECT *
+    FROM users
+    JOIN sells
+    ON users.id = sells.user_id
+    JOIN orders
+    ON sells.id = orders.sell_id
+    JOIN products
+    ON orders.product_id = products.id
+    WHERE email= ${ email }
+
     `; // ver si dejamos sell_id o cambiamos a otra ref
 };
 
