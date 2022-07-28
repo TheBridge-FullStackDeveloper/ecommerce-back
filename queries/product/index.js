@@ -19,7 +19,7 @@ const getAllProducts = (db) => async() =>{
 // Querie para crear un producto
 const createProducts = (db) => 
     async({ref, name, price, stock, img, details, rate, category_id}) =>{
-        console.log(category_id)
+    
     return await queryCatcher(
         db.query, 
         "createProducts"

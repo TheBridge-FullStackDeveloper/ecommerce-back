@@ -7,7 +7,8 @@ module.exports = (db) => async (req, res, next) => {
     const {ref, name, price, stock, img, details, rate, category_id} = req.body
 
     const product = await getOneProduct(db)({ref});
-    if(product.data) return next(errors[404]);
+    
+    if(product.data.length) return next(errors[401]);
 
     const queryResult = await createProducts(db)({
       ref, 
@@ -24,6 +25,6 @@ module.exports = (db) => async (req, res, next) => {
     
     res.status(200).json({
         success: true,
-        message: 'Test Create Product',
+        
       });
 }

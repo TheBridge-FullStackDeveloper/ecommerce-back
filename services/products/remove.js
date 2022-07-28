@@ -1,9 +1,13 @@
-const { deleteProduct } = require("../../queries/product");
+const { getOneProduct, deleteProduct } = require("../../queries/product");
 const errors =  require("../../errors/products");
 
 module.exports = (db) => async (req, res, next) => {
 
     const {ref} = req.body;
+
+    const product = await getOneProduct(db)({ref});
+    
+    if(!product.data.length) return next(errors[402]);
 
     const queryResult = await deleteProduct(db)({ref});
 
