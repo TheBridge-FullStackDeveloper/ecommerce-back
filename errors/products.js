@@ -3,8 +3,8 @@ module.exports = {
         statusCode: 400,
         error: new Error("something went wrong"),
       },
-    404: {
-      statusCode: 404,
+    401: {
+      statusCode: 401,
       error: new Error("Duplicated Product"),
     }
   };
