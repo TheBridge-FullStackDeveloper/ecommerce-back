@@ -1,10 +1,17 @@
 const { sql } = require("slonik");
 
-const selectOneProduct = ({productId}) =>{
-    return sql `
+const selectOneProduct = ({ref}) =>{
+    console.log(ref)
+    try {
+        return sql `
         SELECT * FROM products 
-        WHERE id = ${productId};
+        WHERE ref = ${ref};
     `
+    } catch (error) {
+        console.log(error)
+        console.log(error.message)
+    }
+
 };
 
 const selectAllProducts = () =>{
@@ -15,19 +22,20 @@ const selectAllProducts = () =>{
     `;
 };
 
-const insertOneProduct = ({productId, category, name, price, quantity, img, details, rate}) =>{
+const insertOneProduct = ({ref, name, price, stock, img, details, rate, category_id}) =>{
+   
     return sql`
         INSERT INTO products(
-            productId, category, name, price, quantity, img, details, rate
+            ref, name, price, stock, img, details, rate, category_id
         ) VALUES(
-            ${productId}, 
-            ${category}, 
+            ${ref}, 
             ${name}, 
             ${price}, 
-            ${quantity}, 
+            ${stock}, 
             ${img},
             ${details}, 
-            ${rate}
+            ${rate},
+            ${category_id}
         );
     `;
 };
