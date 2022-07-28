@@ -4,7 +4,7 @@ const errors =  require("../../errors/products")
 
 module.exports = (db) => async (req, res, next) => {
 
-    const {ref, name, price, stock, img, details, rate, category_id} = req.body
+    const {ref, name, price, stock, img, details, category_id} = req.body
 
     const product = await getOneProduct(db)({ref});
     
@@ -17,7 +17,6 @@ module.exports = (db) => async (req, res, next) => {
       stock, 
       img, 
       details, 
-      rate,
       category_id
     })
 

@@ -21,11 +21,11 @@ const selectAllProducts = () =>{
     `;
 };
 
-const insertOneProduct = ({ref, name, price, stock, img, details, rate, category_id}) =>{
+const insertOneProduct = ({ref, name, price, stock, img, details, category_id}) =>{
    
     return sql`
         INSERT INTO products(
-            ref, name, price, stock, img, details, rate, category_id
+            ref, name, price, stock, img, details, category_id
         ) VALUES(
             ${ref}, 
             ${name}, 
@@ -33,17 +33,16 @@ const insertOneProduct = ({ref, name, price, stock, img, details, rate, category
             ${stock}, 
             ${img},
             ${details}, 
-            ${rate},
             ${category_id}
         );
     `;
 };
 
-const updateOneProduct = ({ref, name, price, stock, img, details, rate, category_id}) => {
+const updateOneProduct = ({ref, name, price, stock, img, details, category_id}) => {
 
     return sql`
         UPDATE products
-        SET name = ${name}, price = ${price}, stock = ${stock}, img = ${img}, details = ${details}, rate =${rate}, category_id = ${category_id}
+        SET name = ${name}, price = ${price}, stock = ${stock}, img = ${img}, details = ${details}, category_id = ${category_id}
         WHERE ref = ${ref}
     
     `

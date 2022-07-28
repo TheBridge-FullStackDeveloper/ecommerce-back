@@ -18,7 +18,7 @@ const getAllProducts = (db) => async() =>{
 
 // Querie para crear un producto
 const createProducts = (db) => 
-    async({ref, name, price, stock, img, details, rate, category_id}) =>{
+    async({ref, name, price, stock, img, details, category_id}) =>{
     
     return await queryCatcher(
         db.query, 
@@ -30,7 +30,6 @@ const createProducts = (db) =>
         stock, 
         img, 
         details, 
-        rate, 
         category_id
     }
     ));
@@ -38,7 +37,7 @@ const createProducts = (db) =>
 
 // Querie para hacer Update de un Producto: Aquí tengo mas dudas de los argumentos que paso 
 
-const updateProduct = (db) => async({ref, name, price, stock, img, details, rate, category_id}) =>{
+const updateProduct = (db) => async({ref, name, price, stock, img, details, category_id}) =>{
     const product = await getOneProduct(db)({ref});
 
     if(!product.data)
@@ -50,19 +49,13 @@ const updateProduct = (db) => async({ref, name, price, stock, img, details, rate
         return await queryCatcher(
             db.query, 
             "updateProduct"
-        )(updateOneProduct({ref, name, price, stock, img, details, rate, category_id}))
+        )(updateOneProduct({ref, name, price, stock, img, details, category_id}))
     
 };
 
 // Delete a Product 
 const deleteProduct = (db) => async({ref}) =>{
-    const product = await getOneProduct(db)({ref});
 
-    if(!product.data)
-        return {
-            ok: false,
-            code:"Product doesnt exist"
-        };
 
         return await queryCatcher(
             db.query, 
