@@ -55,13 +55,11 @@ const deleteOneProduct = ({ref}) =>{
         WHERE ref = ${ref}
     `
 }
-
-module.exports= {
+module.exports = {
     selectOneProduct,
     selectAllProducts,
     insertOneProduct,
     updateOneProduct,
-    deleteOneProduct, 
+    deleteOneProduct,
 }
-
 

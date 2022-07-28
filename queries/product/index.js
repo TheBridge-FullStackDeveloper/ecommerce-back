@@ -1,5 +1,6 @@
-const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries"); 
+const { selectAllProducts, selectOneProduct, insertOneProduct, updateOneProduct, deleteOneProduct } = require("./queries");
 const { queryCatcher } = require("../utils")
+
 // Querie para coger un único producto: Me viene bien para luego hacer el Update de ese producto
 
 const getOneProduct = (db) => async({ref}) =>{
@@ -14,7 +15,6 @@ const getOneProduct = (db) => async({ref}) =>{
 const getAllProducts = (db) => async() =>{
     return await queryCatcher(db.query, "getAllProducts")(selectAllProducts());
 };
-
 
 // Querie para crear un producto
 const createProducts = (db) => 
@@ -43,7 +43,7 @@ const updateProduct = (db) => async({ref, name, price, stock, img, details, cate
     if(!product.data)
         return {
             ok: false,
-            code:"Product doesnt exist"
+            code: "Product doesnt exist"
         };
 
         return await queryCatcher(
@@ -65,9 +65,10 @@ const deleteProduct = (db) => async({ref}) =>{
 };
 
 module.exports = {
-    getOneProduct, 
+    getOneProduct,
     getAllProducts,
     createProducts,
     updateProduct,
     deleteProduct,
 }
+
