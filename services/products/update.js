@@ -1,28 +1,26 @@
 const { updateProduct } = require("../../queries/product");
-
+const errors = require("../../errors/products")
 
 module.exports = (db) => async (req, res, next) => {
 
-  const {productId, category, name, price, quantity, img, details, rate} = req.body
+  const {ref, name, price, stock, img, details, category_id} = req.body;
 
-    //console.log( req.body )
     const queryResult = await updateProduct(db)({
-      productId, 
-      category, 
+      ref, 
       name, 
       price, 
-      quantity, 
+      stock, 
       img, 
       details, 
-      rate,
+      category_id
 
     })
     
-    if (!queryResult.ok) return next("Errorrrrrr al actualizar el producto"); //pendiente errors register[queryResult.code] || errors[500]
+    if (!queryResult.ok) return next(errors[403]);
     
 
     res.status(200).json({
         success: true,
-        message: 'Test Update Product',
+        message: 'Product Updated',
       });
 }

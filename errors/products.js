@@ -5,10 +5,21 @@ module.exports = {
       },
     401: {
       statusCode: 401,
-      error: new Error("Duplicated Product"),
+      error: new Error("Error while removing product"),
     },
+<<<<<<< HEAD
     402: {
       statusCode: 402,
       error: new Error("Product not found"),
+    },
+=======
+>>>>>>> f32ebeff9d77c4f108ccca59575065a40df8a89d
+    403: {
+      statusCode: 403,
+      error: new Error("Error updating product"),
+    },
+    404: {
+      statusCode: 404,
+      error: new Error("Duplicated Product"),
     }
   };

@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS products (
   stock INTEGER NOT NULL,
   img TEXT NOT NULL,
   details VARCHAR(500) NOT NULL,
-  rate SMALLINT NOT NULL,
+  rate SMALLINT,
   category_id uuid REFERENCES categories
     ON UPDATE CASCADE
     ON DELETE SET NULL,

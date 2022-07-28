@@ -2,8 +2,8 @@ const router = require("express").Router();
 const { checker } = require("../../middlewares");
 
 const forms = {
-    create: ['ref', 'name', 'price', 'stock', 'img', 'details', 'rate', 'category_id'],
-    update: ['id','ref', 'name', 'price', 'stock', 'img', 'details', 'rate', 'category_id'],
+    create: ['ref', 'name', 'price', 'stock', 'img', 'details', 'category_id'],
+    update: ['ref', 'name', 'price', 'stock', 'img', 'details', 'category_id'],
     remove: ['ref']
 }
 
