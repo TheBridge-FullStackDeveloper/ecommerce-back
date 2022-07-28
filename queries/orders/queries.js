@@ -18,10 +18,8 @@ const selectAllOrders = () => {
 };
 
 const insertOneOrder = ({ quantity, sell_id, product_id }) => {
- // console.log(quantity, sell_Id, product_id)
   return sql` INSERT INTO orders (quantity, sell_id, product_id) 
-  VALUES (${quantity}, (SELECT id FROM sells WHERE id = ${sell_id}),
-  (SELECT id FROM products WHERE id = ${product_id}));
+  VALUES (${quantity}, ${sell_id}, ${product_id});
   `;
 };
 
