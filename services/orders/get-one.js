@@ -5,7 +5,7 @@ module.exports = (db) => async (req, res, next) =>{
 
     const { email } = res.locals;
 
-    const queryResult = await getOneOrder(db)();
+    const queryResult = await getOneOrder(db)({ email });
 
     if(!queryResult.ok) return next(errors[400]);
 

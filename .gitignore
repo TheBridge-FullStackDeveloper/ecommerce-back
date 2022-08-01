@@ -132,9 +132,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-<<<<<<< HEAD
-
-/queries/orders
-/services/orders
-=======
->>>>>>> e48ee3b8a91e823e4eaf2b7d1bff35a2194fdfca
