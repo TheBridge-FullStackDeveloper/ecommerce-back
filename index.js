@@ -3,9 +3,12 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const db = require("./configs/db");
 const errors = require("./errors/commons");
+const cors = require("cors");
+const options = require("./configs/cors");
 
 const app = express();
 
+app.use(cors(options));
 app.use(express.json());
 app.use(cookieParser());
 
