@@ -15,7 +15,7 @@ const selectOneProduct = ({ref}) =>{
 
 const selectAllProducts = () =>{
     return sql `
-    SELECT ref, products.name, price, stock, img, details, rate, categories.name FROM products
+    SELECT ref, products.name, price, stock, img, details, rate, categories.name AS category FROM products
     JOIN categories
     ON products.category_id = categories.id
     `;
